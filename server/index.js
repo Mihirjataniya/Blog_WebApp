@@ -4,6 +4,7 @@ const dotenv = require('dotenv')
 const timeout = require("connect-timeout")
 const connectDB = require("./config/database")
 const blogRoutes = require('./routes/blogRoutes')
+const userRoutes = require('./routes/userRoutes')
 
 dotenv.config()
 
@@ -19,7 +20,9 @@ app.get("/", (req, res) => {
         message: "Server is running...",
     })
 })
+
 app.use('/api/v1/blog',blogRoutes)
+app.use('/api/v1/user',userRoutes)
 
 const PORT = process.env.PORT || 3000
 const startServer = async () => {
