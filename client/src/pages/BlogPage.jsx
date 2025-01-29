@@ -4,8 +4,10 @@ import { getBlogById } from '../../apis'
 import { useParams } from 'react-router-dom'
 import { Clock, User } from 'lucide-react'
 import { convertDate } from '../utils/dateConversion'
+import BlogSkeleton from '../components/BlogSkeleton'
 
 const BlogPage = () => {
+    const [loading, setLoading] = useState(false)
     const [data, setData] = useState()
     const { id } = useParams()
     console.log();
@@ -13,11 +15,14 @@ const BlogPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoading(true)
                 const blogData = await getBlogById(id)
                 console.log(blogData)
                 setData(blogData.blog)
             } catch (error) {
                 console.log(error)
+            } finally {
+                setLoading(false)
             }
         }
         fetchData()
@@ -30,7 +35,7 @@ const BlogPage = () => {
                     <p className='font-ergaramond text-4xl font-bold'>
                         {data.title}
                     </p>
-                    <div className='flex items-center justify-between my-4'>
+                    <div className='flex items-center justify-between w-full my-4'>
                         <p className="text-xs md:text-sm flex items-center gap-2 text-[#7f7f80] my-2">
                             <span><User size={16} /></span> {data.author}
                         </p>
@@ -49,7 +54,7 @@ const BlogPage = () => {
                         <div dangerouslySetInnerHTML={{ __html: data.content }} />
                     </p>
                 </div>
-            ) : (
+            ) : loading ? <BlogSkeleton /> : (
                 <p className="text-[#15191C] flex items-center justify-center mt-18">No blog available.</p>
             )}
         </div>

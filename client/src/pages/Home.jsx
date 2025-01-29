@@ -9,7 +9,7 @@ import HomeSkeleton from '../components/HomeSkeleton';
 
 const Home = () => {
     const [data, setData] = useState([])
-    const [loading,setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [searchTerm, setSearchTerm] = useState('')
     const navigate = useNavigate()
 
@@ -29,7 +29,7 @@ const Home = () => {
         fetchResult()
     }, [])
 
-   
+
     const filteredBlogs = data.filter(item => {
         const titleMatch = item.title.toLowerCase().includes(searchTerm.toLowerCase());
         const contentMatch = htmlToText(item.content).toLowerCase().includes(searchTerm.toLowerCase());
@@ -37,14 +37,12 @@ const Home = () => {
 
         return titleMatch || contentMatch || tagsMatch;
     });
-    if(loading){
-        return <HomeSkeleton />
-    }
+   
     return (
         <div className='w-full h-full'>
             <Navbar />
             <div className='max-w-4xl mx-auto mt-4 px-5'>
-              
+
                 <div className="relative mb-8">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <Search className="h-5 w-5 text-gray-400" />
@@ -61,7 +59,7 @@ const Home = () => {
                     />
                 </div>
 
-               
+
                 <div className='my-5 w-full'>
                     {filteredBlogs.length > 0 ? (
                         filteredBlogs.map((item) => (
@@ -86,8 +84,12 @@ const Home = () => {
                                 </div>
                             </div>
                         ))
+                    ) : loading ? (
+                        <HomeSkeleton />
                     ) : (
-                        <p className="text-[#15191C] flex items-center justify-center mt-18">No blogs available.</p>
+                        <p className="text-[#15191C] flex items-center justify-center mt-18">
+                            No blogs available.
+                        </p>
                     )}
                 </div>
             </div>

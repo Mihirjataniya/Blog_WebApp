@@ -25,7 +25,7 @@ const Register = () => {
             });
             
             localStorage.setItem("token", response.token);
-            localStorage.setItem("user", JSON.stringify(response.user));
+            localStorage.setItem("user", response.user);
             
             const savedToken = localStorage.getItem("token");
             const savedUser = localStorage.getItem("user");
