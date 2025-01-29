@@ -6,7 +6,7 @@ export const getAllBlogs = async () => {
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/blog`)
         return response.data
     } catch (error) {
-        throw new error("SOMETHING WENT WRONG")
+        throw new error(error.response.data.error)
     }
 }
 
@@ -15,7 +15,7 @@ export const getBlogById = async (id) => {
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/blog/${id}`)
         return response.data
     } catch (error) {
-        throw new error("SOMETHING WENT WRONG")
+        throw new error(error.response.data.error)
     }
 }
 
@@ -29,7 +29,7 @@ export const createBlog = async (data) => {
         return response.data
     } catch (error) {
         console.log(error);
-        throw new error("SOMETHING WENT WRONG")
+        throw new error(error.response.data.error)
     }
 }
 
@@ -42,7 +42,7 @@ export const updateBlog = async (id,blogData) => {
         })
         return response.data
     } catch (error) {
-        throw new error("SOMETHING WENT WRONG")
+        throw new error(error.response.data.error)
     }
 }
 
@@ -55,7 +55,7 @@ export const deleteBlog = async (id) => {
         })
         return response.data
     } catch (error) {
-        throw new error("SOMETHING WENT WRONG")
+        throw new error(error.response.data.error)
     }
 }
 
@@ -66,7 +66,7 @@ export const registerUser = async (data) => {
         const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/register`, data)
         return response.data
     } catch (error) {
-        throw new error("SOMETHING WENT WRONG")
+        throw new error(error.response.data.error)
     }
 }
 
@@ -75,7 +75,8 @@ export const loginUser = async (data) => {
         const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/login`, data)
         return response.data
     } catch (error) {
-        throw new Error("SOMETHING WENT WRONG");
+        console.log(error);
+        throw new Error(error.response.data.error);
 
     }
 }
@@ -89,6 +90,6 @@ export const getUserBlogs = async () => {
         })
         return response.data
     } catch (error) {
-        throw new Error("SOMETHING WENT WRONG");
+        throw new Error(error.response.data.error);
     }
 }
